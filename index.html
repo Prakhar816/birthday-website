@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Ishita ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(
+        -45deg,
+        #ffe4ec,
+        #ffd6e7,
+        #fff0f5,
+        #ffd1dc
+    );
+
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+
+    text-align:center;
+    min-height:100vh;
+    overflow:hidden;
+    color:#d63384;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+h1{
+    margin-top:30px;
+    font-size:55px;
+    min-height:70px;
+}
+
+.photo{
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    object-fit:cover;
+    border:8px solid white;
+    margin-top:20px;
+    box-shadow:0 0 35px rgba(255,255,255,0.9);
+    animation:zoomIn 2s ease;
+    transition:all 1s ease;
+}
+
+@keyframes zoomIn{
+    from{
+        transform:scale(0.6);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.subtitle{
+    margin-top:20px;
+    font-size:24px;
+    padding:0 20px;
+}
+
+.btn{
+    margin-top:25px;
+    padding:15px 30px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:#ff4d88;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 4px 15px rgba(255,105,180,0.3);
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+.balloon{
+    position:fixed;
+    bottom:-100px;
+    font-size:50px;
+    animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-120vh);
+    }
+}
+
+
+.popup{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+
+    width:85%;
+    max-width:650px;
+
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(15px);
+
+    color:#d63384;
+
+    padding:30px;
+    border-radius:25px;
+
+    border:1px solid rgba(255,255,255,0.5);
+
+    box-shadow:0 8px 40px rgba(255,105,180,0.3);
+
+    z-index:999;
+}
+
+.close-btn{
+    margin-top:20px;
+}
+
+.birthday-date{
+    margin-top:15px;
+    font-size:22px;
+    font-weight:bold;
+    color:#ff4d88;
+    text-shadow:0 0 10px white;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 id="typing"></h1>
+
+<img id="slideshow"
+src="{{ url_for('static', filename='photo1.jpg') }}"
+class="photo">
+
+<p class="birthday-date">
+    ✨ 18 June — The day my favorite person was born ❤️ ✨
+</p>
+
+
+<p class="subtitle">
+You make every day brighter and every moment sweeter ❤️
+</p>
+
+<button class="btn" onclick="openLetter()">
+💌 Open  Letter
+</button>
+
+<div id="letter" class="popup">
+
+<h2>❤️ Happy Birthday, My Love ❤️</h2>
+
+<br>
+
+<p>
+You are the most beautiful part of my life.<br><br>
+
+Every moment spent with you is one of my most precious memories.<br><br>
+
+If I were given a thousand chances to live,
+I would choose you every single time. ❤️
+</p>
+
+<br>
+
+<h3>🎂 Happy Birthday, My Love 🎂</h3>
+
+<button class="btn close-btn" onclick="closeLetter()">
+Close
+</button>
+
+</div>
+
+<script>
+
+const text = "🎂 Happy Birthday Ishita ❤️";
+let typingIndex = 0;
+
+function typeWriter(){
+
+    if(typingIndex < text.length){
+
+        document.getElementById("typing").innerHTML +=
+        text.charAt(typingIndex);
+
+        typingIndex++;
+
+        setTimeout(typeWriter,100);
+    }
+}
+
+typeWriter();
+
+function openLetter(){
+
+    document.getElementById("letter").style.display="block";
+
+    for(let i=0;i<80;i++){
+
+        let confetti=document.createElement("div");
+
+        confetti.innerHTML="🎉";
+
+        confetti.style.position="fixed";
+        confetti.style.left=Math.random()*100+"vw";
+        confetti.style.top="-20px";
+        confetti.style.fontSize="25px";
+
+        document.body.appendChild(confetti);
+
+        confetti.animate(
+        [
+            {transform:'translateY(0px)'},
+            {transform:'translateY(100vh)'}
+        ],
+        {
+            duration:3000
+        });
+
+        setTimeout(()=>{
+            confetti.remove();
+        },3000);
+    }
+}
+
+function closeLetter(){
+    document.getElementById("letter").style.display="none";
+}
+
+function createBalloon(){
+
+    const balloon=document.createElement("div");
+
+    balloon.className="balloon";
+    balloon.innerHTML="🎈";
+
+    balloon.style.left=Math.random()*100+"vw";
+    balloon.style.animationDuration=(Math.random()*5+5)+"s";
+
+    document.body.appendChild(balloon);
+
+    setTimeout(()=>{
+        balloon.remove();
+    },10000);
+}
+
+setInterval(createBalloon,1000);
+
+
+const photos = [
+    "{{ url_for('static', filename='photo1.jpg') }}",
+    "{{ url_for('static', filename='photo2.jpg') }}",
+    "{{ url_for('static', filename='photo3.jpg') }}"
+];
+
+let currentPhoto = 0;
+
+setInterval(() => {
+
+    currentPhoto++;
+
+    if(currentPhoto >= photos.length){
+        currentPhoto = 0;
+    }
+
+    document.getElementById("slideshow").src =
+    photos[currentPhoto];
+
+}, 3000);
+
+</script>
+
+</body>
+</html>
